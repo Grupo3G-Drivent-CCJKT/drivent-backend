@@ -58,7 +58,7 @@ export function getHotelsMock() {
 }
 
 export function getRoomsByHotelIdMock() {
-  const expect: Hotel & { Rooms: Room[] } = {
+  const expect = {
     id: 1,
     name: 'Teste',
     image: 'teste image',
@@ -72,6 +72,7 @@ export function getRoomsByHotelIdMock() {
         hotelId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
+        _count: { Booking: 0 },
       },
     ],
   };
