@@ -51,7 +51,7 @@ async function upsertBooking({ id, roomId, userId }: UpdateParams) {
   });
 }
 
-async function bookingByUser(userId: number): Promise<BookingInput> {
+async function bookingByUserInHotels(userId: number): Promise<BookingInput> {
   return prisma.$queryRaw`
     SELECT b.id AS id, 
       json_build_object(
@@ -75,7 +75,7 @@ const bookingRepository = {
   findByRoomId,
   findByUserId,
   upsertBooking,
-  bookingByUser,
+  bookingByUserInHotels,
 };
 
 export default bookingRepository;

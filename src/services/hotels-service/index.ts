@@ -26,7 +26,7 @@ async function getHotels(userId: number): Promise<HotelsInfos> {
     throw notFoundError();
   }
 
-  const booking = await bookingRepository.bookingByUser(userId);
+  const booking = await bookingRepository.bookingByUserInHotels(userId);
 
   return { hotels, booking };
 }
