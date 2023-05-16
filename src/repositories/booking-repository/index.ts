@@ -1,5 +1,6 @@
 import { Booking } from '@prisma/client';
 import { prisma } from '@/config';
+import { BookingInput } from '@/protocols';
 
 type CreateParams = Omit<Booking, 'id' | 'createdAt' | 'updatedAt'>;
 type UpdateParams = Omit<Booking, 'createdAt' | 'updatedAt'>;
@@ -50,11 +51,31 @@ async function upsertBooking({ id, roomId, userId }: UpdateParams) {
   });
 }
 
+async function bookingByUser(userId: number): Promise<BookingInput> {
+  return prisma.$queryRaw`
+    SELECT b.id AS id, 
+      json_build_object(
+        'name', r.name
+      ) AS room,
+      json_build_object(
+        'name', h.name,
+        'image', h.image
+      ) AS hotel,
+      (SELECT COUNT(*) FROM "Booking" WHERE "roomId" = r.id)
+      AS "personCount"
+      FROM "Booking" b 
+      INNER JOIN "Room" r ON r.id = b."roomId" 
+      INNER JOIN "Hotel" h ON h.id = r."hotelId" 
+      WHERE b."userId" = ${userId}
+  `;
+}
+
 const bookingRepository = {
   create,
   findByRoomId,
   findByUserId,
   upsertBooking,
+  bookingByUser,
 };
 
 export default bookingRepository;

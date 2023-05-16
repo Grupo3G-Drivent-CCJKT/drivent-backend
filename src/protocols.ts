@@ -62,3 +62,15 @@ type RoomInput = {
   bookings: number;
   avaliable: number;
 };
+
+export type BookingInput = {
+  id: number;
+  room: Omit<RoomInput, 'bookings' | 'capacity' | 'hotelId' | 'avaliable' | 'id'>;
+  hotel: Omit<HotelsInput, 'Rooms' | 'totalAvailableRooms' | 'id'>;
+  personCount: number;
+};
+
+export type HotelsInfos = {
+  hotels: HotelsInput[];
+  booking: BookingInput;
+};
