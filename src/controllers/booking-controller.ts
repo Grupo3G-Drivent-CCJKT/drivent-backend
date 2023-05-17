@@ -24,9 +24,7 @@ export async function bookingRoom(req: AuthenticatedRequest, res: Response, next
 
     const booking = await bookingService.bookingRoomById(userId, roomId);
 
-    return res.status(httpStatus.OK).send({
-      bookingId: booking.id,
-    });
+    return res.status(httpStatus.OK).send(booking);
   } catch (error) {
     next(error);
   }
@@ -41,9 +39,7 @@ export async function changeBooking(req: AuthenticatedRequest, res: Response, ne
     const { roomId } = req.body as Record<string, number>; // <tipo da chave, tipo do valor>
     const booking = await bookingService.changeBookingRoomById(userId, roomId);
 
-    return res.status(httpStatus.OK).send({
-      bookingId: booking.id,
-    });
+    return res.status(httpStatus.OK).send(booking);
   } catch (error) {
     next(error);
   }
