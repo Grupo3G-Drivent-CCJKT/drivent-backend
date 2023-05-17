@@ -55,7 +55,8 @@ async function bookingByUserInHotels(userId: number): Promise<BookingInput> {
   return prisma.$queryRaw`
     SELECT b.id AS id, 
       json_build_object(
-        'name', r.name
+        'name', r.name,
+        'capacity', r.capacity
       ) AS room,
       json_build_object(
         'name', h.name,
