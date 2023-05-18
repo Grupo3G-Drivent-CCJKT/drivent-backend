@@ -3,6 +3,7 @@ import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
 
+import { redisConnect } from './config/redisconfig';
 import { loadEnv, connectDb, disconnectDB } from '@/config';
 
 loadEnv();
@@ -38,6 +39,7 @@ app
 
 export function init(): Promise<Express> {
   connectDb();
+  redisConnect();
   return Promise.resolve(app);
 }
 
