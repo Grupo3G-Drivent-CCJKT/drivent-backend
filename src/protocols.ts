@@ -89,3 +89,7 @@ export type LocationsActivitiesInput = {
   name: string;
   Activities: ActivitiesInput[];
 };
+
+export type ActivitiesDates = {
+  startsAt: Date;
+};
