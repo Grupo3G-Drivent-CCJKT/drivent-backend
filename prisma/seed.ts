@@ -123,6 +123,27 @@ async function main() {
     })
   }
 
+  let location = await prisma.locations.findFirst()
+  if(!location) {
+    let firstLocal = await prisma.locations.create({
+      data:
+        {name: 'Principal'}
+    })
+
+    let secondLocal = await prisma.locations.create({
+      data:
+        {name: 'Lateral'}
+    })
+
+    let thirdLocal = await prisma.locations.create({
+      data:
+        {name: 'Externo'}
+    })
+
+   
+
+  }
+
   console.log("Seed complete");
 }
 

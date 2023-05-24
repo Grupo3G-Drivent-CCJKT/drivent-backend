@@ -18,7 +18,8 @@ model User {
   updatedAt  DateTime     @updatedAt
   Session    Session[]    
   Enrollment Enrollment[] 
-  Booking    Booking[]    
+  Booking    Booking[]  
+  Register   Register[]  
 }
 
 model Session {
@@ -142,4 +143,30 @@ model Booking {
 model Teste {
   id    Int    @id @default(autoincrement())
   name  String
+}
+
+model Activities {
+    id           Int      @id @default(autoincrement())
+    name         String
+    startsAt     DateTime
+    endsAt       DateTime
+    Locations    Locations   @relation(fields: [locationId], references: [id], onDelete: Cascade)
+    locationId   Int
+    capacity     Int
+    Register     Register []    
+}
+
+model Locations {
+    id          Int      @id @default(autoincrement())
+    name        String
+    Activities  Activities[]
+}
+
+
+model Register {
+    id        Int      @id @default(autoincrement())
+    User      User     @relation(fields: [userId], references: [id],  onDelete: Cascade)
+    userId    Int
+    activityId Int
+    Activities Activities @relation(fields: [activityId], references: [id])
 }
