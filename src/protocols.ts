@@ -74,3 +74,18 @@ export type HotelsInfos = {
   hotels: HotelsInput[];
   booking: BookingInput;
 };
+
+export type ActivitiesInput = {
+  id: number;
+  name: string;
+  startsAt: string;
+  endsAt: string;
+  avaliable: number;
+  capacity: number;
+};
+
+export type LocationsActivitiesInput = {
+  id: number;
+  name: string;
+  Activities: ActivitiesInput[];
+};
