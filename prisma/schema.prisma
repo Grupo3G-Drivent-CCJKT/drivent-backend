@@ -148,12 +148,14 @@ model Teste {
 model Activities {
     id           Int      @id @default(autoincrement())
     name         String
-    startsAt     DateTime
+    startsAt     DateTime 
     endsAt       DateTime
     Locations    Locations   @relation(fields: [locationId], references: [id], onDelete: Cascade)
     locationId   Int
     capacity     Int
     Register     Register []    
+
+  @@index([startsAt])
 }
 
 model Locations {
