@@ -140,6 +140,85 @@ async function main() {
         {name: 'Externo'}
     })
 
+    await prisma.activities.createMany({
+      data:[{
+        name: 'React',
+        startsAt: dayjs('2023-05-20 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-20 10:00:00').toDate(),
+        locationId: firstLocal.id,
+        capacity: 30
+      },
+      {
+        name: 'JEST',
+        startsAt: dayjs('2023-05-20 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-20 10:00:00').toDate(),
+        locationId: secondLocal.id,
+        capacity: 30
+      },
+      {
+        name: 'Node',
+        startsAt: dayjs('2023-05-20 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-20 11:00:00').toDate(),
+        locationId: thirdLocal.id,
+        capacity: 15
+      },
+      {
+        name: 'HTML',
+        startsAt: dayjs('2023-05-20 11:00:00').toDate(),
+        endsAt:   dayjs('2023-05-20 13:00:00').toDate(),
+        locationId: firstLocal.id,
+        capacity: 2
+      },
+      {
+        name: 'CSS',
+        startsAt: dayjs('2023-05-20 14:00:00').toDate(),
+        endsAt:   dayjs('2023-05-20 15:00:00').toDate(),
+        locationId: firstLocal.id,
+        capacity: 1
+      },
+      {
+        name: 'TypeScript',
+        startsAt: dayjs('2023-05-21 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-21 10:00:00').toDate(),
+        locationId: firstLocal.id,
+        capacity: 2
+      },
+      {
+        name: 'Game',
+        startsAt: dayjs('2023-05-21 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-21 15:00:00').toDate(),
+        locationId: secondLocal.id,
+        capacity: 1
+      },
+      {
+        name: 'JEST',
+        startsAt: dayjs('2023-05-21 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-21 11:00:00').toDate(),
+        locationId: thirdLocal.id,
+        capacity: 1
+      },
+      {
+        name: 'TypeScript',
+        startsAt: dayjs('2023-05-22 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-22 10:00:00').toDate(),
+        locationId: firstLocal.id,
+        capacity: 2
+      },
+      {
+        name: 'Lolzin',
+        startsAt: dayjs('2023-05-22 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-22 15:00:00').toDate(),
+        locationId: secondLocal.id,
+        capacity: 1
+      },
+      {
+        name: 'CS',
+        startsAt: dayjs('2023-05-22 09:00:00').toDate(),
+        endsAt:   dayjs('2023-05-22 11:00:00').toDate(),
+        locationId: thirdLocal.id,
+        capacity: 1
+      }]
+    })
    
 
   }
