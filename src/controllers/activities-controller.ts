@@ -1,11 +1,11 @@
 import { Response } from 'express';
 import { AuthenticatedRequest } from '@/middlewares';
+import activitiesService from '@/services/activities-service';
 
-export async function get(req: AuthenticatedRequest, res: Response) {
-  const { userId } = req;
-
+export async function findActivitiesDates(req: AuthenticatedRequest, res: Response) {
   try {
-    res.send(userId);
+    const dates: string[] = await activitiesService.findActivitiesDates();
+    res.send(dates);
   } catch (error) {
     console.log(error);
   }
