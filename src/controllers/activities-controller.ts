@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { AuthenticatedRequest } from '@/middlewares';
 import activitiesService from '@/services/activities-service';
 
@@ -8,5 +8,15 @@ export async function findActivitiesDates(req: AuthenticatedRequest, res: Respon
     res.send(dates);
   } catch (error) {
     console.log(error);
+  }
+}
+
+export async function findActivitiesByDate(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+  const { date } = req.query;
+  try {
+    const activitiesByDate = await activitiesService.findActivitiesByDate(date as string);
+    res.send(activitiesByDate);
+  } catch (error) {
+    next(error);
   }
 }
