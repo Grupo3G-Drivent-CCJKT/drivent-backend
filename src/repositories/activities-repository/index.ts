@@ -41,9 +41,28 @@ async function findActivitiesDates(): Promise<ActivitiesDates[]> {
   });
 }
 
+async function createRegister(userId: number, activityId: number) {
+  return await prisma.register.create({
+    data: {
+      userId,
+      activityId,
+    },
+  });
+}
+
+async function findActivitiesByUserId(userId: number) {
+  return await prisma.register.findMany({
+    where: {
+      id: userId,
+    },
+  });
+}
+
 const activitiesRepository = {
   findActivitiesByDate,
   findActivitiesDates,
+  createRegister,
+  findActivitiesByUserId,
 };
 
 export default activitiesRepository;
