@@ -5,7 +5,7 @@ import activitiesService from '@/services/activities-service';
 export async function findActivitiesDates(req: AuthenticatedRequest, res: Response) {
   try {
     const dates: string[] = await activitiesService.findActivitiesDates();
-    res.send(dates);
+    res.status(200).send(dates);
   } catch (error) {
     console.log(error);
   }
