@@ -15,6 +15,7 @@ export async function findActivitiesByDate(req: AuthenticatedRequest, res: Respo
   const { date } = req.query;
   try {
     const activitiesByDate = await activitiesService.findActivitiesByDate(date as string);
+    console.log(activitiesByDate);
     res.send(activitiesByDate);
   } catch (error) {
     next(error);
