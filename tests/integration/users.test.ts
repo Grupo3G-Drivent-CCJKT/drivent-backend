@@ -7,6 +7,7 @@ import { cleanDb } from '../helpers';
 import { duplicatedEmailError } from '@/services/users-service';
 import { prisma } from '@/config';
 import app, { init } from '@/app';
+import { redisClient } from '@/config/redisconfig';
 
 beforeAll(async () => {
   await init();
@@ -37,6 +38,7 @@ describe('POST /users', () => {
     });
 
     it('should respond with status 400 when there is no event', async () => {
+      await redisClient.del('event');
       const body = generateValidBody();
 
       const response = await server.post('/users').send(body);
@@ -55,6 +57,7 @@ describe('POST /users', () => {
 
     describe('when event started', () => {
       beforeAll(async () => {
+        await redisClient.del('event');
         await prisma.event.deleteMany({});
         await createEvent();
       });
