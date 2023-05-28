@@ -53,7 +53,7 @@ async function createRegister(userId: number, activityId: number) {
 async function findActivitiesByUserId(userId: number) {
   return await prisma.register.findMany({
     where: {
-      id: userId,
+      userId: userId,
     },
   });
 }
