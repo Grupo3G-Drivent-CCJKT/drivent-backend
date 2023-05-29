@@ -37,7 +37,7 @@ export async function subscribeInActivities(req: AuthenticatedRequest, res: Resp
 export async function findActivitiesByUserId(req: AuthenticatedRequest, res: Response, next: NextFunction) {
   const { userId } = req;
   try {
-    const subscribedActivities = await activitiesService.findActivitiesByUserId(userId);
+    const subscribedActivities = await activitiesService.findRegistersByUserId(userId);
     return res.status(httpStatus.OK).send(subscribedActivities);
   } catch (error) {
     next(error);

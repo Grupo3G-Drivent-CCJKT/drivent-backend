@@ -1,3 +1,4 @@
+import { Activities } from '@prisma/client';
 import { prisma } from '@/config';
 import { ActivitiesDates, LocationsActivitiesInput } from '@/protocols';
 
@@ -50,10 +51,28 @@ async function createRegister(userId: number, activityId: number) {
   });
 }
 
-async function findActivitiesByUserId(userId: number) {
+async function findRegistersByUserId(userId: number) {
   return await prisma.register.findMany({
     where: {
       userId: userId,
+    },
+  });
+}
+
+async function findActivitiy(id: number): Promise<Activities> {
+  return prisma.activities.findUnique({
+    where: { id },
+  });
+}
+
+async function findActivitiesByUserId(userId: number) {
+  return await prisma.activities.findMany({
+    where: {
+      Register: {
+        some: {
+          userId: { equals: userId },
+        },
+      },
     },
   });
 }
@@ -62,6 +81,8 @@ const activitiesRepository = {
   findActivitiesByDate,
   findActivitiesDates,
   createRegister,
+  findRegistersByUserId,
+  findActivitiy,
   findActivitiesByUserId,
 };
 
