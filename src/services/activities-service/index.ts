@@ -22,8 +22,7 @@ async function findActivitiesByDate(date: string): Promise<LocationsActivitiesIn
 async function subscribeInActivities(userId: number, activityId: number) {
   if (!userId || !activityId) throw notFoundError();
   const subscribedActivities = await activitiesRepository.findActivitiesByUserId(userId);
-  if (await hasConflit(subscribedActivities, activityId))
-    throw conflictError('Cannot subscribe to activity with time conflit');
+  if (await hasConflit(subscribedActivities, activityId)) throw conflictError('Inscrição com conflito de horário');
   return await activitiesRepository.createRegister(userId, activityId);
 }
 
