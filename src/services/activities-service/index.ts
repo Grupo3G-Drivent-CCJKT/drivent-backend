@@ -1,7 +1,8 @@
 import { dateIsNotValid } from '@/errors/date-isnotvalid-error';
-import { LocationsActivitiesInput, ActivitiesDates, ActivitiesInput } from '@/protocols';
+import { LocationsActivitiesInput, ActivitiesDates } from '@/protocols';
 import activitiesRepository from '@/repositories/activities-repository';
 import { isStringDateValid } from '@/utils/validDate-utils';
+import { notFoundError } from '@/errors';
 
 async function findActivitiesDates() {
   const dates: ActivitiesDates[] = await activitiesRepository.findActivitiesDates();
@@ -16,9 +17,20 @@ async function findActivitiesByDate(date: string): Promise<LocationsActivitiesIn
   return activitiesByDate;
 }
 
+async function subscribeInActivities(userId: number, activityId: number) {
+  if (!userId || !activityId) throw notFoundError();
+  return await activitiesRepository.createRegister(userId, activityId);
+}
+
+async function findActivitiesByUserId(userId: number) {
+  return await activitiesRepository.findActivitiesByUserId(userId);
+}
+
 const activitiesService = {
   findActivitiesDates,
   findActivitiesByDate,
+  subscribeInActivities,
+  findActivitiesByUserId,
 };
 
 export default activitiesService;
