@@ -22,7 +22,7 @@ async function findActivitiesByDate(date: string): Promise<LocationsActivitiesIn
 async function subscribeInActivities(userId: number, activityId: number) {
   if (!userId || !activityId) throw notFoundError();
   const subscribedActivities = await activitiesRepository.findActivitiesByUserId(userId);
-  if (hasConflit(subscribedActivities, activityId))
+  if (await hasConflit(subscribedActivities, activityId))
     throw conflictError('Cannot subscribe to activity with time conflit');
   return await activitiesRepository.createRegister(userId, activityId);
 }
@@ -34,7 +34,7 @@ async function findRegistersByUserId(userId: number) {
 async function hasConflit(subscribedActivities: Activities[], activityId: number) {
   const activity = await activitiesRepository.findActivitiy(activityId);
   if (!activity) throw badRequestError();
-  const conflitedAcitivieties = subscribedActivities.filter((s) => {
+  const conflitedActivieties = subscribedActivities.filter((s) => {
     if (s.startsAt.getTime() <= activity.startsAt.getTime() && activity.startsAt.getTime() <= s.endsAt.getTime())
       return true; // b starts in a
     if (s.startsAt.getTime() <= activity.endsAt.getTime() && activity.endsAt.getTime() <= s.endsAt.getTime())
@@ -43,7 +43,7 @@ async function hasConflit(subscribedActivities: Activities[], activityId: number
       return true; // a in b
     return false;
   });
-  return conflitedAcitivieties.length;
+  return conflitedActivieties.length !== 0;
 }
 
 const activitiesService = {
